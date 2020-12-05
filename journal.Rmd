@@ -53,6 +53,8 @@ hist(samples)
 
 When you knit this R Markdown document, you will see that the histogram is printed to the page, along with the R code. This document can be set up to hide the R code in the webpage, just delete the comment (hashtag) from the cold folding option in the yaml header up top. For purposes of letting yourself see the code, and me see the code, best to keep it the way that it is. You'll learn that all of these things and more can be customized in each R code block.
 
+Hi update
+
 ```{r plot, fig.width=10, fig.height=7}
 
 sales_by_states_and_year %>%
