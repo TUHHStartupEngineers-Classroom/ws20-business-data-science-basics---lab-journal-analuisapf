@@ -58,19 +58,46 @@ Hi update
 ```{r plot, fig.width=10, fig.height=7}
 
 
+
+
+sales_by_state %>%
+  
+  # Setup canvas with the columns year (x-axis) and sales (y-axis)
+  ggplot(aes(x = state, y = sales)) +
+  
+  # Geometries
+  geom_col(fill = "#2DC6D6") + # Use geom_col for a bar plot
+  geom_label(aes(label = sales_text)) + # Adding labels to the bars
+  geom_smooth(method = "lm", se = FALSE) + # Adding a trendline
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  
+  # Formatting
+  # scale_y_continuous(labels = scales::dollar) + # Change the y-axis. 
+  # Again, we have to adjust it for euro values
+  scale_y_continuous(labels = scales::dollar_format(big.mark = ".", 
+                                                    decimal.mark = ",", 
+                                                    prefix = "", 
+                                                    suffix = " €")) +
+  labs(
+    title    = "Revenue by state",
+    subtitle = "Upward Trend",
+    x = "", # Override defaults for x and y
+    y = "Revenue"
+  )
+
 # Step 2 - Visualize
 
-sales_by_states_and_year %>%
+sales_by_state_year %>%
   
   # Set up x, y, fill
   ggplot(aes(x = year, y = sales, fill = state)) +
   
   # Geometries
   geom_col() + # Run up to here to get a stacked bar plot
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   
   # Facet
   facet_wrap(~ state) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   
   # Formatting
   scale_y_continuous(labels = scales::dollar_format(big.mark = ".", 

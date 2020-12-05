@@ -439,19 +439,44 @@ hist(samples)</code></pre>
 <p><img src="journal_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 <p>When you knit this R Markdown document, you will see that the histogram is printed to the page, along with the R code. This document can be set up to hide the R code in the webpage, just delete the comment (hashtag) from the cold folding option in the yaml header up top. For purposes of letting yourself see the code, and me see the code, best to keep it the way that it is. You’ll learn that all of these things and more can be customized in each R code block.</p>
 <p>Hi update</p>
+<pre class="r"><code>sales_by_state %&gt;%
+  
+  # Setup canvas with the columns year (x-axis) and sales (y-axis)
+  ggplot(aes(x = state, y = sales)) +
+  
+  # Geometries
+  geom_col(fill = &quot;#2DC6D6&quot;) + # Use geom_col for a bar plot
+  geom_label(aes(label = sales_text)) + # Adding labels to the bars
+  geom_smooth(method = &quot;lm&quot;, se = FALSE) + # Adding a trendline
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  
+  # Formatting
+  # scale_y_continuous(labels = scales::dollar) + # Change the y-axis. 
+  # Again, we have to adjust it for euro values
+  scale_y_continuous(labels = scales::dollar_format(big.mark = &quot;.&quot;, 
+                                                    decimal.mark = &quot;,&quot;, 
+                                                    prefix = &quot;&quot;, 
+                                                    suffix = &quot; €&quot;)) +
+  labs(
+    title    = &quot;Revenue by state&quot;,
+    subtitle = &quot;Upward Trend&quot;,
+    x = &quot;&quot;, # Override defaults for x and y
+    y = &quot;Revenue&quot;
+  )</code></pre>
+<p><img src="journal_files/figure-html/plot-1.png" width="960" /></p>
 <pre class="r"><code># Step 2 - Visualize
 
-sales_by_states_and_year %&gt;%
+sales_by_state_year %&gt;%
   
   # Set up x, y, fill
   ggplot(aes(x = year, y = sales, fill = state)) +
   
   # Geometries
   geom_col() + # Run up to here to get a stacked bar plot
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   
   # Facet
   facet_wrap(~ state) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   
   # Formatting
   scale_y_continuous(labels = scales::dollar_format(big.mark = &quot;.&quot;, 
@@ -463,7 +488,7 @@ sales_by_states_and_year %&gt;%
     subtitle = &quot;Each product category has an upward trend&quot;,
     fill = &quot;Main category&quot; # Changes the legend name
   )</code></pre>
-<p><img src="journal_files/figure-html/plot-1.png" width="960" /></p>
+<p><img src="journal_files/figure-html/plot-2.png" width="960" /></p>
 </div>
 
 
