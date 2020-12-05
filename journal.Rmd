@@ -57,6 +57,9 @@ Hi update
 
 ```{r plot, fig.width=10, fig.height=7}
 
+
+# Step 2 - Visualize
+
 sales_by_states_and_year %>%
   
   # Set up x, y, fill
