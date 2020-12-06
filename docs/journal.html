@@ -414,7 +414,7 @@ div.tocify {
 <p>This is an <code>.Rmd</code> file. It is plain text with special features. Any time you write just like this, it will be compiled to normal text in the website. If you put a # in front of your text, it will create a top level-header.</p>
 <div id="my-first-post" class="section level1">
 <h1><span class="header-section-number">1</span> My first post</h1>
-<p>Last compiled: 2020-12-05</p>
+<p>Last compiled: 2020-12-06</p>
 <p>Notice that whatever you define as a top level header, automatically gets put into the table of contents bar on the left.</p>
 <div id="second-level-header" class="section level2">
 <h2><span class="header-section-number">1.1</span> Second level header</h2>
@@ -427,7 +427,7 @@ div.tocify {
 </div>
 <div id="my-second-post-note-the-order" class="section level1">
 <h1><span class="header-section-number">2</span> My second post (note the order)</h1>
-<p>Last compiled: 2020-12-05</p>
+<p>Last compiled: 2020-12-06</p>
 <p>I’m writing this tutorial going from the top down. And, this is how it will be printed. So, notice the second post is second in the list. If you want your most recent post to be at the top, then make a new post starting at the top. If you want the oldest first, do, then keep adding to the bottom</p>
 </div>
 <div id="adding-r-stuff" class="section level1">
@@ -489,6 +489,22 @@ sales_by_state_year %&gt;%
     fill = &quot;Main category&quot; # Changes the legend name
   )</code></pre>
 <p><img src="journal_files/figure-html/plot-2.png" width="960" /></p>
+<pre class="r"><code>library(httr)
+library(glue)
+
+token &lt;- Sys.getenv(&quot;apikey&quot;)
+
+
+resp &lt;- GET(glue(&quot;http://api.openweathermap.org/data/2.5/weather?q=London,uk&amp;APPID={token}&quot;))
+
+resp</code></pre>
+<pre><code>## Response [http://api.openweathermap.org/data/2.5/weather?q=London,uk&amp;APPID=91b507b9ca459ac24333f6b7075401f0]
+##   Date: 2020-12-06 17:44
+##   Status: 200
+##   Content-Type: application/json; charset=utf-8
+##   Size: 465 B</code></pre>
+<pre class="r"><code>rawToChar(resp$content)</code></pre>
+<pre><code>## [1] &quot;{\&quot;coord\&quot;:{\&quot;lon\&quot;:-0.13,\&quot;lat\&quot;:51.51},\&quot;weather\&quot;:[{\&quot;id\&quot;:803,\&quot;main\&quot;:\&quot;Clouds\&quot;,\&quot;description\&quot;:\&quot;broken clouds\&quot;,\&quot;icon\&quot;:\&quot;04n\&quot;}],\&quot;base\&quot;:\&quot;stations\&quot;,\&quot;main\&quot;:{\&quot;temp\&quot;:276.54,\&quot;feels_like\&quot;:273.28,\&quot;temp_min\&quot;:275.37,\&quot;temp_max\&quot;:278.15,\&quot;pressure\&quot;:1002,\&quot;humidity\&quot;:86},\&quot;visibility\&quot;:10000,\&quot;wind\&quot;:{\&quot;speed\&quot;:2.1,\&quot;deg\&quot;:330},\&quot;clouds\&quot;:{\&quot;all\&quot;:77},\&quot;dt\&quot;:1607276635,\&quot;sys\&quot;:{\&quot;type\&quot;:1,\&quot;id\&quot;:1414,\&quot;country\&quot;:\&quot;GB\&quot;,\&quot;sunrise\&quot;:1607241062,\&quot;sunset\&quot;:1607269962},\&quot;timezone\&quot;:0,\&quot;id\&quot;:2643743,\&quot;name\&quot;:\&quot;London\&quot;,\&quot;cod\&quot;:200}&quot;</code></pre>
 </div>
 
 
